@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ भारत SecureNet - Minimal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: -20px -20px 40px -20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .auth-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .auth-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .message.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin: 0 auto 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-card h3 i {
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-card li i {
+            margin-right: 10px;
+            color: #28a745;
+            width: 16px;
+        }
+
+        .feature-card li:last-child {
+            border-bottom: none;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .action-buttons .btn {
+            margin: 0 10px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>⚡ भारत SecureNet</h1>
+            <p>Minimal Digital Ecosystem</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Auth Section -->
+        <div class="auth-section" id="authSection">
+            <h2>🔐 Authentication</h2>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">👤 Username</label>
+                    <input type="text" id="username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="password">🔒 Password</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">📧 Email (Optional)</label>
+                <input type="email" id="email" placeholder="your@email.com">
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="signup()">✍️ Signup</button>
+                <button class="btn btn-secondary" onclick="login()">🔐 Login</button>
+            </div>
+
+            <div class="message info" id="authMessage">Ready to start! ⚡</div>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="hidden">
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Total Users</h3>
+                    <p id="totalUsers">0</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Emails</h3>
+                    <p id="totalEmails">0</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Messages</h3>
+                    <p id="totalMessages">0</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Last Activity</h3>
+                    <p id="lastActivity" style="font-size: 1em;">None</p>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3><i class="fas fa-envelope"></i> Email System</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Send & receive emails</li>
+                        <li><i class="fas fa-check"></i> Real-time notifications</li>
+                        <li><i class="fas fa-check"></i> Secure encryption</li>
+                        <li><i class="fas fa-check"></i> Attachment support</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3><i class="fas fa-comments"></i> Chat Application</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Real-time messaging</li>
+                        <li><i class="fas fa-check"></i> Group conversations</li>
+                        <li><i class="fas fa-check"></i> File sharing</li>
+                        <li><i class="fas fa-check"></i> Online status</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3><i class="fas fa-user"></i> User Profiles</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Custom avatars</li>
+                        <li><i class="fas fa-check"></i> Bio & contact info</li>
+                        <li><i class="fas fa-check"></i> Privacy settings</li>
+                        <li><i class="fas fa-check"></i> Activity tracking</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3><i class="fas fa-shield-alt"></i> Security Features</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> End-to-end encryption</li>
+                        <li><i class="fas fa-check"></i> Secure authentication</li>
+                        <li><i class="fas fa-check"></i> Data protection</li>
+                        <li><i class="fas fa-check"></i> Session management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="openFullApp()">🚀 Open Full App</button>
+                <button class="btn btn-secondary" onclick="logout()">🚪 Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // App State
+        let currentUser = null;
+        let users = JSON.parse(localStorage.getItem('bharat_users') || '[]');
+        let emails = JSON.parse(localStorage.getItem('bharat_emails') || '[]');
+        let messages = JSON.parse(localStorage.getItem('bharat_messages') || '[]');
+
+        // Initialize app
+        function initApp() {
+            const savedUser = localStorage.getItem('bharat_current_user');
+            if (savedUser && savedUser !== 'None') {
+                currentUser = users.find(u => u.username === savedUser);
+                if (currentUser) {
+                    showDashboard();
+                    updateStats();
+                    return;
+                }
+            }
+            showAuth();
+        }
+
+        // Show auth section
+        function showAuth() {
+            document.getElementById('authSection').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+        }
+
+        // Show dashboard
+        function showDashboard() {
+            document.getElementById('authSection').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+        }
+
+        // Show message
+        function showMessage(text, type = 'info') {
+            const message = document.getElementById('authMessage');
+            message.textContent = text;
+            message.className = `message ${type}`;
+        }
+
+        // Signup function
+        function signup() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!username || !password) {
+                showMessage('❌ Username और Password जरूरी हैं!', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('❌ Password कम से कम 6 characters का होना चाहिए!', 'error');
+                return;
+            }
+
+            // Check if user exists
+            const existingUser = users.find(u => u.username.toLowerCase() === username.toLowerCase());
+            if (existingUser) {
+                showMessage('❌ यह username पहले से मौजूद है!', 'error');
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                username,
+                email,
+                password: btoa(password),
+                bio: '',
+                phone: '',
+                address: '',
+                avatar: username.charAt(0).toUpperCase(),
+                createdAt: new Date().toLocaleString('hi-IN'),
+                lastLogin: new Date().toLocaleString('hi-IN')
+            };
+
+            users.push(newUser);
+            localStorage.setItem('bharat_users', JSON.stringify(users));
+
+            currentUser = newUser;
+            localStorage.setItem('bharat_current_user', username);
+
+            showMessage('✅ Signup सफल! Welcome to Bharat SecureNet!', 'success');
+            setTimeout(() => showDashboard(), 2000);
+        }
+
+        // Login function
+        function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !password) {
+                showMessage('❌ Username और Password भरें!', 'error');
+                return;
+            }
+
+            // Find user
+            const user = users.find(u =>
+                u.username.toLowerCase() === username.toLowerCase() &&
+                u.password === btoa(password)
+            );
+
+            if (user) {
+                currentUser = user;
+                currentUser.lastLogin = new Date().toLocaleString('hi-IN');
+                localStorage.setItem('bharat_current_user', username);
+                localStorage.setItem('bharat_users', JSON.stringify(users));
+
+                showMessage(`🚀 Login सफल! स्वागत है ${user.username}`, 'success');
+                setTimeout(() => showDashboard(), 2000);
+            } else {
+                showMessage('❌ Username या Password गलत है!', 'error');
+            }
+        }
+
+        // Logout function
+        function logout() {
+            currentUser = null;
+            localStorage.setItem('bharat_current_user', 'None');
+            showAuth();
+        }
+
+        // Update stats
+        function updateStats() {
+            if (!currentUser) return;
+
+            document.getElementById('totalUsers').textContent = users.length;
+            document.getElementById('totalEmails').textContent = emails.filter(e => e.to === currentUser.username || e.from === currentUser.username).length;
+            document.getElementById('totalMessages').textContent = messages.length;
+            document.getElementById('lastActivity').textContent = currentUser.lastLogin;
+        }
+
+        // Open full app
+        function openFullApp() {
+            // Open the main app in a new tab
+            window.open('index.html', '_blank');
+        }
+
+        // Initialize app on load
+        window.addEventListener('load', initApp);
+
+        // Enter key support
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !document.getElementById('dashboard').classList.contains('hidden')) {
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value.trim();
+
+                if (username && password) {
+                    login();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 भारत SecureNet - Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .mobile-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .mobile-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .mobile-header h1 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .mobile-header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .mobile-content {
+            padding: 20px;
+        }
+
+        /* Auth Screen */
+        .auth-screen {
+            display: block;
+        }
+
+        .auth-form {
+            background: white;
+            padding: 30px 20px;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .auth-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+        }
+
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .message.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .message.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .message.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            border-top: 1px solid #e1e8ed;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-item {
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            flex: 1;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #f8f9fa;
+            color: #667eea;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+        }
+
+        /* Content Pages */
+        .page {
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Email Page */
+        .email-list {
+            margin-bottom: 20px;
+        }
+
+        .email-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .email-item:hover, .email-item.unread {
+            background: #e1e8ed;
+        }
+
+        .email-sender {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #667eea;
+        }
+
+        .email-subject {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .email-preview {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .compose-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 50;
+        }
+
+        /* Chat Page */
+        .chat-list {
+            margin-bottom: 20px;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .chat-item:hover, .chat-item.active {
+            background: #e1e8ed;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .chat-info h4 {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .chat-info p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .messages-container {
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+            font-size: 14px;
+        }
+
+        .message-bubble.sent {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bubble.received {
+            background: #f8f9fa;
+            color: #333;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-input {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            background: white;
+            border-top: 1px solid #e1e8ed;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e1e8ed;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .message-input button {
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        /* Profile Page */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+            margin: 0 auto 15px;
+            cursor: pointer;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 20px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #e1e8ed;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            cursor: pointer;
+            font-size: 24px;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        /* Responsive */
+        @media (min-width: 481px) {
+            .mobile-container {
+                margin: 20px auto;
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                min-height: calc(100vh - 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Header -->
+        <div class="mobile-header">
+            <h1>📱 भारत SecureNet</h1>
+            <p>Mobile First</p>
+        </div>
+
+        <!-- Auth Screen -->
+        <div class="auth-screen page active" id="authPage">
+            <div class="mobile-content">
+                <div class="auth-form">
+                    <h2>🔐 Welcome</h2>
+
+                    <div class="form-group">
+                        <label for="mobileUsername">👤 Username</label>
+                        <input type="text" id="mobileUsername" placeholder="Enter username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobilePassword">🔒 Password</label>
+                        <input type="password" id="mobilePassword" placeholder="Enter password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobileEmail">📧 Email (Optional)</label>
+                        <input type="email" id="mobileEmail" placeholder="your@email.com">
+                    </div>
+
+                    <button class="btn btn-primary" onclick="mobileSignup()">✍️ Signup</button>
+                    <button class="btn btn-secondary" onclick="mobileLogin()">🔐 Login</button>
+
+                    <div class="message info" id="mobileAuthMessage">Ready to start! 📱</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard page" id="dashboardPage">
+            <div class="mobile-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-value" id="mobileTotalUsers">0</div>
+                        <div class="stat-label">Users</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="stat-value" id="mobileTotalEmails">0</div>
+                        <div class="stat-label">Emails</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-comments"></i></div>
+                        <div class="stat-value" id="mobileTotalMessages">0</div>
+                        <div class="stat-label">Messages</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-value" id="mobileLastActivity" style="font-size: 1em;">None</div>
+                        <div class="stat-label">Last Activity</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn btn-primary" onclick="openFullApp()">🚀 Open Full App</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email Page -->
+        <div class="page" id="emailPage">
+            <div class="mobile-content">
+                <h3 style="margin-bottom: 20px; color: #333;">📧 Email System</h3>
+                <div class="email-list" id="mobileEmailList">
+                    <!-- Emails will be loaded here -->
+                </div>
+            </div>
+            <button class="compose-btn" onclick="mobileComposeEmail()">+</button>
+        </div>
+
+        <!-- Chat Page -->
+        <div class="page" id="chatPage">
+            <div class="mobile-content">
+                <h3 style="margin-bottom: 20px; color: #333;">💬 Chat App</h3>
+                <div class="chat-list" id="mobileChatList">
+                    <!-- Chat conversations will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="page" id="chatMessagesPage">
+            <div class="mobile-content">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <button onclick="backToChats()" style="background: none; border: none; font-size: 20px; margin-right: 15px; color: #667eea;">←</button>
+                    <h3 id="chatTitle" style="color: #333;">Chat</h3>
+                </div>
+                <div class="messages-container" id="mobileMessagesContainer">
+                    <!-- Messages will be loaded here -->
+                </div>
+            </div>
+            <div class="message-input">
+                <form onsubmit="mobileSendMessage(event)">
+                    <input type="text" id="mobileMessageInput" placeholder="Type message..." required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div class="page" id="profilePage">
+            <div class="mobile-content">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="mobileProfileAvatar" onclick="mobileChangeAvatar()">U</div>
+                    <h3 id="mobileProfileName">Username</h3>
+                    <p id="mobileProfileJoinDate">Member since: Date</p>
+                </div>
+
+                <form class="profile-form" onsubmit="mobileUpdateProfile(event)">
+                    <div class="form-group">
+                        <label for="mobileProfileUsername">👤 Username</label>
+                        <input type="text" id="mobileProfileUsername" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobileProfileEmail">📧 Email</label>
+                        <input type="email" id="mobileProfileEmail">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobileProfileBio">📝 Bio</label>
+                        <input type="text" id="mobileProfileBio" placeholder="Tell us about yourself">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobileProfilePhone">📞 Phone</label>
+                        <input type="tel" id="mobileProfilePhone" placeholder="Your phone number">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">💾 Update Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobileNav" style="display: none;">
+            <div class="nav-item active" data-page="dashboardPage">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item" data-page="emailPage">
+                <i class="fas fa-envelope"></i>
+                <span>Email</span>
+            </div>
+            <div class="nav-item" data-page="chatPage">
+                <i class="fas fa-comments"></i>
+                <span>Chat</span>
+            </div>
+            <div class="nav-item" data-page="profilePage">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compose Email Modal -->
+    <div class="modal" id="mobileComposeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📧 Compose Email</h3>
+                <span class="modal-close" onclick="closeMobileModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="mobileSendEmail(event)">
+                    <div class="form-group">
+                        <label for="mobileEmailTo">To:</label>
+                        <input type="text" id="mobileEmailTo" placeholder="recipient@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobileEmailSubject">Subject:</label>
+                        <input type="text" id="mobileEmailSubject" placeholder="Email subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobileEmailBody">Message:</label>
+                        <textarea id="mobileEmailBody" rows="6" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">📤 Send Email</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // App State
+        let currentUser = null;
+        let currentPage = 'authPage';
+        let users = JSON.parse(localStorage.getItem('bharat_users') || '[]');
+        let emails = JSON.parse(localStorage.getItem('bharat_emails') || '[]');
+        let messages = JSON.parse(localStorage.getItem('bharat_messages') || '[]');
+        let currentChatUser = null;
+
+        // Initialize app
+        function initMobileApp() {
+            const savedUser = localStorage.getItem('bharat_current_user');
+            if (savedUser && savedUser !== 'None') {
+                currentUser = users.find(u => u.username === savedUser);
+                if (currentUser) {
+                    showMobileDashboard();
+                    return;
+                }
+            }
+            showMobileAuth();
+        }
+
+        // Show auth
+        function showMobileAuth() {
+            switchMobilePage('authPage');
+            document.getElementById('mobileNav').style.display = 'none';
+        }
+
+        // Show dashboard
+        function showMobileDashboard() {
+            switchMobilePage('dashboardPage');
+            document.getElementById('mobileNav').style.display = 'flex';
+            updateMobileStats();
+        }
+
+        // Switch page
+        function switchMobilePage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+
+            document.getElementById(pageId).classList.add('active');
+            const navItem = document.querySelector(`[data-page="${pageId}"]`);
+            if (navItem) navItem.classList.add('active');
+
+            currentPage = pageId;
+
+            // Load page content
+            if (pageId === 'emailPage') loadMobileEmails();
+            if (pageId === 'chatPage') loadMobileChats();
+        }
+
+        // Show message
+        function showMobileMessage(text, type = 'info') {
+            const message = document.getElementById('mobileAuthMessage');
+            message.textContent = text;
+            message.className = `message ${type}`;
+        }
+
+        // Signup
+        function mobileSignup() {
+            const username = document.getElementById('mobileUsername').value.trim();
+            const password = document.getElementById('mobilePassword').value.trim();
+            const email = document.getElementById('mobileEmail').value.trim();
+
+            if (!username || !password) {
+                showMobileMessage('❌ Username और Password जरूरी हैं!', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMobileMessage('❌ Password कम से कम 6 characters का होना चाहिए!', 'error');
+                return;
+            }
+
+            const existingUser = users.find(u => u.username.toLowerCase() === username.toLowerCase());
+            if (existingUser) {
+                showMobileMessage('❌ यह username पहले से मौजूद है!', 'error');
+                return;
+            }
+
+            const newUser = {
+                id: Date.now(),
+                username,
+                email,
+                password: btoa(password),
+                bio: '',
+                phone: '',
+                address: '',
+                avatar: username.charAt(0).toUpperCase(),
+                createdAt: new Date().toLocaleString('hi-IN'),
+                lastLogin: new Date().toLocaleString('hi-IN')
+            };
+
+            users.push(newUser);
+            localStorage.setItem('bharat_users', JSON.stringify(users));
+
+            currentUser = newUser;
+            localStorage.setItem('bharat_current_user', username);
+
+            showMobileMessage('✅ Signup सफल! Welcome to Bharat SecureNet!', 'success');
+            setTimeout(() => showMobileDashboard(), 2000);
+        }
+
+        // Login
+        function mobileLogin() {
+            const username = document.getElementById('mobileUsername').value.trim();
+            const password = document.getElementById('mobilePassword').value.trim();
+
+            if (!username || !password) {
+                showMobileMessage('❌ Username और Password भरें!', 'error');
+                return;
+            }
+
+            const user = users.find(u =>
+                u.username.toLowerCase() === username.toLowerCase() &&
+                u.password === btoa(password)
+            );
+
+            if (user) {
+                currentUser = user;
+                currentUser.lastLogin = new Date().toLocaleString('hi-IN');
+                localStorage.setItem('bharat_current_user', username);
+                localStorage.setItem('bharat_users', JSON.stringify(users));
+
+                showMobileMessage(`🚀 Login सफल! स्वागत है ${user.username}`, 'success');
+                setTimeout(() => showMobileDashboard(), 2000);
+            } else {
+                showMobileMessage('❌ Username या Password गलत है!', 'error');
+            }
+        }
+
+        // Update stats
+        function updateMobileStats() {
+            if (!currentUser) return;
+
+            document.getElementById('mobileTotalUsers').textContent = users.length;
+            document.getElementById('mobileTotalEmails').textContent = emails.filter(e => e.to === currentUser.username || e.from === currentUser.username).length;
+            document.getElementById('mobileTotalMessages').textContent = messages.length;
+            document.getElementById('mobileLastActivity').textContent = currentUser.lastLogin;
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const page = item.dataset.page;
+                switchMobilePage(page);
+            });
+        });
+
+        // Email functions
+        function loadMobileEmails() {
+            const emailList = document.getElementById('mobileEmailList');
+            const userEmails = emails.filter(e => e.to === currentUser.username || e.from === currentUser.username);
+
+            emailList.innerHTML = userEmails.length ? '' : '<div style="text-align: center; padding: 50px; color: #666;">No emails yet</div>';
+
+            userEmails.reverse().forEach(email => {
+                const emailItem = document.createElement('div');
+                emailItem.className = `email-item ${!email.read && email.to === currentUser.username ? 'unread' : ''}`;
+                emailItem.onclick = () => openMobileEmail(email);
+
+                emailItem.innerHTML = `
+                    <div class="email-sender">${email.from === currentUser.username ? 'To: ' + email.to : 'From: ' + email.from}</div>
+                    <div class="email-subject">${email.subject}</div>
+                    <div class="email-preview">${email.body.substring(0, 50)}...</div>
+                `;
+
+                emailList.appendChild(emailItem);
+            });
+        }
+
+        function mobileComposeEmail() {
+            document.getElementById('mobileComposeModal').style.display = 'flex';
+        }
+
+        function closeMobileModal() {
+            document.getElementById('mobileComposeModal').style.display = 'none';
+        }
+
+        function mobileSendEmail(event) {
+            event.preventDefault();
+
+            const to = document.getElementById('mobileEmailTo').value;
+            const subject = document.getElementById('mobileEmailSubject').value;
+            const body = document.getElementById('mobileEmailBody').value;
+
+            const email = {
+                id: Date.now(),
+                from: currentUser.username,
+                to,
+                subject,
+                body,
+                timestamp: new Date().toLocaleString('hi-IN'),
+                read: false
+            };
+
+            emails.push(email);
+            localStorage.setItem('bharat_emails', JSON.stringify(emails));
+
+            closeMobileModal();
+            loadMobileEmails();
+            updateMobileStats();
+
+            event.target.reset();
+        }
+
+        function openMobileEmail(email) {
+            alert(`From: ${email.from}\nTo: ${email.to}\nSubject: ${email.subject}\n\n${email.body}`);
+
+            if (email.to === currentUser.username) {
+                email.read = true;
+                localStorage.setItem('bharat_emails', JSON.stringify(emails));
+                loadMobileEmails();
+            }
+        }
+
+        // Chat functions
+        function loadMobileChats() {
+            const chatList = document.getElementById('mobileChatList');
+            const chatUsers = [...new Set(messages.map(m => m.from === currentUser.username ? m.to : m.from))];
+
+            chatList.innerHTML = chatUsers.length ? '' : '<div style="text-align: center; padding: 50px; color: #666;">No conversations yet</div>';
+
+            chatUsers.forEach(username => {
+                if (username === currentUser.username) return;
+
+                const chatItem = document.createElement('div');
+                chatItem.className = 'chat-item';
+                chatItem.onclick = () => openMobileChat(username);
+
+                const user = users.find(u => u.username === username);
+                const avatar = user ? user.avatar : username.charAt(0).toUpperCase();
+
+                chatItem.innerHTML = `
+                    <div class="chat-avatar">${avatar}</div>
+                    <div class="chat-info">
+                        <h4>${username}</h4>
+                        <p>Click to chat</p>
+                    </div>
+                `;
+
+                chatList.appendChild(chatItem);
+            });
+        }
+
+        function openMobileChat(username) {
+            currentChatUser = username;
+            document.getElementById('chatTitle').textContent = `Chat with ${username}`;
+            switchMobilePage('chatMessagesPage');
+            loadMobileMessages();
+        }
+
+        function backToChats() {
+            switchMobilePage('chatPage');
+            currentChatUser = null;
+        }
+
+        function loadMobileMessages() {
+            if (!currentChatUser) return;
+
+            const messagesContainer = document.getElementById('mobileMessagesContainer');
+            const chatMessages = messages.filter(m =>
+                (m.from === currentUser.username && m.to === currentChatUser) ||
+                (m.from === currentChatUser && m.to === currentUser.username)
+            );
+
+            messagesContainer.innerHTML = chatMessages.length ? '' : '<div style="text-align: center; padding: 50px; color: #666;">Start a conversation!</div>';
+
+            chatMessages.forEach(message => {
+                const messageBubble = document.createElement('div');
+                messageBubble.className = `message-bubble ${message.from === currentUser.username ? 'sent' : 'received'}`;
+                messageBubble.innerHTML = `
+                    <div>${message.text}</div>
+                    <div style="font-size: 10px; margin-top: 5px; opacity: 0.7;">${message.timestamp}</div>
+                `;
+                messagesContainer.appendChild(messageBubble);
+            });
+
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function mobileSendMessage(event) {
+            event.preventDefault();
+
+            if (!currentChatUser) {
+                alert('Please select a conversation first!');
+                return;
+            }
+
+            const messageInput = document.getElementById('mobileMessageInput');
+            const text = messageInput.value.trim();
+
+            if (!text) return;
+
+            const message = {
+                id: Date.now(),
+                from: currentUser.username,
+                to: currentChatUser,
+                text,
+                timestamp: new Date().toLocaleString('hi-IN')
+            };
+
+            messages.push(message);
+            localStorage.setItem('bharat_messages', JSON.stringify(messages));
+
+            messageInput.value = '';
+            loadMobileMessages();
+            loadMobileChats();
+            updateMobileStats();
+        }
+
+        // Profile functions
+        function updateMobileProfilePage() {
+            if (!currentUser) return;
+
+            document.getElementById('mobileProfileAvatar').textContent = currentUser.avatar;
+            document.getElementById('mobileProfileName').textContent = currentUser.username;
+            document.getElementById('mobileProfileJoinDate').textContent = `Member since: ${currentUser.createdAt}`;
+
+            document.getElementById('mobileProfileUsername').value = currentUser.username;
+            document.getElementById('mobileProfileEmail').value = currentUser.email || '';
+            document.getElementById('mobileProfileBio').value = currentUser.bio || '';
+            document.getElementById('mobileProfilePhone').value = currentUser.phone || '';
+        }
+
+        function mobileUpdateProfile(event) {
+            event.preventDefault();
+
+            currentUser.email = document.getElementById('mobileProfileEmail').value;
+            currentUser.bio = document.getElementById('mobileProfileBio').value;
+            currentUser.phone = document.getElementById('mobileProfilePhone').value;
+
+            localStorage.setItem('bharat_users', JSON.stringify(users));
+            updateMobileProfilePage();
+
+            alert('✅ Profile updated successfully!');
+        }
+
+        function mobileChangeAvatar() {
+            const newAvatar = prompt('Enter a single character for your avatar:', currentUser.avatar);
+            if (newAvatar && newAvatar.length === 1) {
+                currentUser.avatar = newAvatar.toUpperCase();
+                localStorage.setItem('bharat_users', JSON.stringify(users));
+                updateMobileProfilePage();
+            }
+        }
+
+        // Open full app
+        function openFullApp() {
+            window.open('index.html', '_blank');
+        }
+
+        // Initialize app on load
+        window.addEventListener('load', () => {
+            initMobileApp();
+            updateMobileProfilePage();
+        });
+
+        // Enter key support
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (currentPage === 'authPage') {
+                    const username = document.getElementById('mobileUsername').value.trim();
+                    const password = document.getElementById('mobilePassword').value.trim();
+
+                    if (username && password) {
+                        mobileLogin();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
